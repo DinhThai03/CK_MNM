@@ -1,8 +1,10 @@
 <?php
+session_start();
 include "./connect/connect.php";
 include "./connect/sanphamconn.php";
 include "./connect/nhasanxuatconn.php";
 include "./connect/categoriesconn.php";
+include "./connect/user.php";
 $dssp = getallsp();
 $hang = getallnsx();
 ?>
@@ -34,7 +36,7 @@ $hang = getallnsx();
           $dssp = getspBynsx($idnsx);
         }
         include "./view/home.php";
-        break;
+        break;  
       case 'category':
         if (isset($_GET['loai_id']) && $_GET['loai_id'] > 0) {
           $idcate = $_GET['loai_id'];
@@ -67,7 +69,8 @@ $hang = getallnsx();
           $userpass = $_POST['userpass'];
 
           $kq = getuserinfo($username, $userpass);
-          $role = $kq[0]['role'];
+          if($kq != null){
+            $role = $kq[0]['role'];
           if ($role == 1) {
             $_SESSION['role'] = $role;
             header('location: ./admin/index.php');
@@ -79,6 +82,8 @@ $hang = getallnsx();
 
             header('location: index.php');
           }
+          }
+          
         }
         include "./login.php";
         break;

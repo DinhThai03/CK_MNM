@@ -1,4 +1,10 @@
-
+<?php
+include "./connect/connect.php";
+include "./connect/sanphamconn.php";
+include "./connect/nhasanxuatconn.php";
+$dssp = getallsp();
+$hang = getallnsx();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,9 +27,17 @@
   include "./view/header.php";
   if (isset($_GET['page_layout'])) {
     switch ($_GET['page_layout']) {
-      
+      case 'nsx':
+        if (isset($_GET['manhasanxuat']) && $_GET['manhasanxuat'] > 0) {
+          $idnsx = $_GET['manhasanxuat'];
+          $dssp = getspBynsx($idnsx);
+        }
+        include "./view/home.php";
+        break;
     }
-  } 
+  }else{
+    include "./view/home.php";
+  }
   include "./view/footer.php";
 
   ?>

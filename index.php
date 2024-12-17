@@ -68,6 +68,26 @@ $hang = getallnsx();
         }
         include "./login.php";
         break;
+      case 'thanhtoan':
+        if (isset($_POST['thanhtoan']) && ($_POST['thanhtoan'])) {
+          $tongtien = $_POST['tongtien'];
+          $name = $_POST['name'];
+          $address = $_POST['address'];
+          $phone = $_POST['phone'];
+          $pttt = $_POST['pttt'];
+          $madh = "dtung" . rand(0, 99999);
+          //tao don hang va gia ve 1 gia tri id
+          $iddh = taodonhang($madh, $tongtien, $name, $address, $phone, $pttt);
+          $_SESSION['iddh'] = $iddh;
+          if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
+            foreach ($_SESSION['giohang'] as $item) {
+              addcart($iddh, $item[0], $item[1], $item[2], $item[3], $item[4]);
+            }
+            unset($_SESSION['giohang']);
+          }
+        }
+        include './view/donhang.php';
+        break;
       case 'signup':
         include './signup.php';
         break;

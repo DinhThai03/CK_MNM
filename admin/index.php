@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
   session_start();
   ob_start();
   include_once '../connect/connect.php';
@@ -7,14 +6,6 @@
   require_once '../connect/nhasanxuatconn.php';
   require_once '../connect/categoriesconn.php';
   require '../connect/user.php';
-=======
-session_start();
-ob_start();
-include "../connect/connect.php";
-require '../connect/user.php';
-
-
->>>>>>> taikhoanadmin
 ?>
 
 <!DOCTYPE html>

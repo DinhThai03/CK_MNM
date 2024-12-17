@@ -1,3 +1,12 @@
+<?php
+session_start();
+ob_start();
+include "../connect/connect.php";
+require '../connect/user.php';
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -106,8 +115,16 @@
 
                   if (isset($_GET['page_layout'])) {
                     switch ($_GET['page_layout']) {
-                      
-                     
+                      case 'taikhoan';
+                        $kq = getalluser();
+
+                        include "account.php";
+                        break;
+                      case 'danhmuc';
+                        $kq = getallcate();
+
+                        include "categories.php";
+                        break;
                     }
                   }
 

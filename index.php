@@ -1,7 +1,9 @@
 <?php
 include "./connect/connect.php";
 include "./connect/sanphamconn.php";
+include "./connect/nhasanxuatconn.php";
 $dssp = getallsp();
+$hang = getallnsx();
 ?>
 <!DOCTYPE html>
 <html lang="en">

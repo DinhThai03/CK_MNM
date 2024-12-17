@@ -1,4 +1,8 @@
-
+<?php
+include "./connect/connect.php";
+include "./connect/sanphamconn.php";
+$dssp = getallsp();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +27,9 @@
     switch ($_GET['page_layout']) {
       
     }
-  } 
+  }else{
+    include "./view/home.php";
+  }
   include "./view/footer.php";
 
   ?>

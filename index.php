@@ -5,6 +5,8 @@ include "./connect/sanphamconn.php";
 include "./connect/nhasanxuatconn.php";
 include "./connect/categoriesconn.php";
 include "./connect/user.php";
+include "./connect/signup_process.php";
+
 $dssp = getallsp();
 $hang = getallnsx();
 ?>

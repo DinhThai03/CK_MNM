@@ -61,6 +61,27 @@ $hang = getallnsx();
         include 'detail.php';
         break;
       
+      case 'login':
+        if ((isset($_POST['login'])) && ($_POST['login'])) {
+          $username = $_POST['username'];
+          $userpass = $_POST['userpass'];
+
+          $kq = getuserinfo($username, $userpass);
+          $role = $kq[0]['role'];
+          if ($role == 1) {
+            $_SESSION['role'] = $role;
+            header('location: ./admin/index.php');
+          } else {
+            $_SESSION['role'] = $role;
+            $_SESSION['iduser'] = $kq[0]['id_tk'];
+
+            $_SESSION['username'] = $kq[0]['username'];
+
+            header('location: index.php');
+          }
+        }
+        include "./login.php";
+        break;
     }
   } else {
     include "./view/home.php";

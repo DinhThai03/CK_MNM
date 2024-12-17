@@ -2,6 +2,7 @@
 include "./connect/connect.php";
 include "./connect/sanphamconn.php";
 include "./connect/nhasanxuatconn.php";
+include "./connect/categoriesconn.php";
 $dssp = getallsp();
 $hang = getallnsx();
 ?>

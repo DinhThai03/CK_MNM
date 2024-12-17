@@ -41,6 +41,12 @@ $hang = getallnsx();
         }
         include "./view/home.php";
         break;
+      case 'logout':
+        unset($_SESSION['role']);
+        unset($_SESSION['iduser']);
+        unset($_SESSION['username']);
+        header('location: index.php');
+        break;
       case 'login':
         if ((isset($_POST['login'])) && ($_POST['login'])) {
           $username = $_POST['username'];
@@ -61,6 +67,9 @@ $hang = getallnsx();
           }
         }
         include "./login.php";
+        break;
+      case 'signup':
+        include './signup.php';
         break;
     }
   } else {

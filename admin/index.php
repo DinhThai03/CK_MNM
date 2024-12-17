@@ -1,3 +1,13 @@
+<?php
+  session_start();
+  ob_start();
+  include_once '../connect/connect.php';
+  require_once '../connect/sanphamconn.php';
+  require_once '../connect/nhasanxuatconn.php';
+  require_once '../connect/categoriesconn.php';
+  require '../connect/user.php';
+?>
+
 <!DOCTYPE html>
 <html>
 

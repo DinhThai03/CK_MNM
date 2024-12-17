@@ -15,7 +15,7 @@ require_once '../connect/nhasanxuatconn.php';
             <div class="container">
                 <div class="form">
                     <br>
-                    <h5>Nhập tên nhà sản xuất</h5>
+                    <h5>Nhập mã nhà sản xuất</h5>
                     <div class="col"><input class="form-control form-control-lg " name="manhasanxuat" type="text"></div>
                     <br>
                     <h5>Nhập tên nhà sản xuất</h5>

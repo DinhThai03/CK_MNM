@@ -1,5 +1,4 @@
 <?php
-
 function getallnsx()
 {
     $conn = connectdb();

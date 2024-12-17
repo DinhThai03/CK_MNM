@@ -116,23 +116,165 @@
 
                   if (isset($_GET['page_layout'])) {
                     switch ($_GET['page_layout']) {
+                      case 'sanpham';
+                      $kq = getallsp();
 
-                      case 'nsx':
-                        $kq = getallnsx();
-                        include "nhasanxuat.php";
-                        break;
-                      case 'addnsx':
-                        include "addnsx.php";
-                        if (isset($_POST['themnsx']) && $_POST['themnsx']) {
-                          $manhasanxuat = $_POST['manhasanxuat'];
-                          $tennhasanxuat = $_POST['tennhasanxuat'];
-                          $mota = $_POST['mota'];
-                          insertnsx($manhasanxuat, $tennhasanxuat, $mota);
-                        }
-                        $kq = getallnsx();
+                      include "sanpham.php";
+                      break;
+                    case 'taikhoan';
+                      $kq = getalluser();
 
-                        include "nhasanxuat.php";
+                      include "account.php";
+                      break;
+                    case 'danhmuc';
+                      $kq = getallcate();
+
+                      include "categories.php";
+                      break;
+                    case 'nsx':
+                      $kq = getallnsx();
+                      include "nhasanxuat.php";
+                      break;
+                    case 'addnsx':
+                      include "addnsx.php";
+                      if (isset($_POST['themnsx']) && $_POST['themnsx']) {
+                        $manhasanxuat = $_POST['manhasanxuat'];
+                        $tennhasanxuat = $_POST['tennhasanxuat'];
+                        $mota = $_POST['mota'];
+                        insertnsx($manhasanxuat, $tennhasanxuat, $mota);
+                      }
+                      $kq = getallnsx();
+
+                      include "nhasanxuat.php";
+                      break;
+                    case 'addcate':
+                      include "addcategories.php";
+                      if (isset($_POST['themcate']) && $_POST['themcate']) {
+                        $id = $_POST['id'];
+                        $tenloaisanpham = $_POST['tenloaisanpham'];
+                        $manhasanxuat = $_POST['manhasanxuat'];
+                        insertcate($id, $tenloaisanpham, $manhasanxuat);
+                      }
+                      $kq = getallcate();
+
+                      include "categories.php";
+                      break;
+
+                    case 'addsp';
+                      include "addsp.php";
+
+                      if (isset($_POST['them']) && ($_POST['them'])) {
+                        $id = $_POST['id'];
+                        $loai_id = $_POST['loai_id'];
+                        $manhsanxuat = $_POST['manhasanxuat'];
+                        $tensp = $_POST['tensp'];
+                        $processor = $_POST['processor'];
+                        $ram = $_POST['ram'];
+                        $dungluong = $_POST['dungluong'];
+                        $vga = $_POST['vga'];
+                        $manhinh = $_POST['manhinh'];
+                        $price = $_POST['price'];
+                        $mota = $_POST['mota'];
+                        $quanity = $_POST['quanity'];
+                        $anhlaptop = $_POST['anhlaptop'];
+                        insertsp($id, $loai_id, $manhsanxuat, $tensp, $processor, $ram, $dungluong, $vga, $manhinh, $price,  $mota, $quanity, $anhlaptop);
+                      }
+
+                      $kq = getallsp();
+
+
+                      include "sanpham.php";
+
+                      break;
+                    case 'deldm';
+                      if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        delsp($id);
+                      }
+                      $kq = getallsp();
+
+                      include "sanpham.php";
+                      break;
+                    case 'deltk';
+                      if (isset($_GET['id_tk'])) {
+                        $id_tk = $_GET['id_tk'];
+                        deltk($id_tk);
+                      }
+                      $kq = getalluser();
+
+                      include "account.php";
+                      break;
+                    case 'delcate';
+                      if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        delcate($id);
+                      }
+                      $kq = getallcate();
+
+                      include "categories.php";
+                      break;
+                    case 'delnsx';
+                      if (isset($_GET['manhasanxuat'])) {
+                        $manhasanxuat = $_GET['manhasanxuat'];
+                        delnsx($manhasanxuat);
+                      }
+                      $kq = getallnsx();
+
+                      include "nhasanxuat.php";
+                      break;
+                    case 'updatedmform';
+                      if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $kqone = getonesp($id);
+                        $kq = getallsp();
+
+                        include "updatedmform.php";
                         break;
+                      }
+                      if (isset($_POST['id'])) {
+                        $id = $_POST['id'];
+                        $loai_id = $_POST['loai_id'];
+                        $manhasanxuat = $_POST['manhasanxuat'];
+                        $tensp = $_POST['tensp'];
+                        $processor = $_POST['processor'];
+                        $ram = $_POST['ram'];
+                        $dungluong = $_POST['dungluong'];
+                        $vga = $_POST['vga'];
+                        $manhinh = $_POST['manhinh'];
+                        $price = $_POST['price'];
+                        $mota = $_POST['mota'];
+                        $quanity = $_POST['quanity'];
+                        $anhlaptop = $_POST['anhlaptop'];
+                        updatesp($id, $loai_id, $manhasanxuat, $tensp,  $processor, $ram, $dungluong, $vga, $manhinh, $price,  $mota, $quanity, $anhlaptop);
+                        $kq = getallsp();
+                        include "sanpham.php";
+                      }
+                      break;
+
+                    case 'updatecate';
+                      if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $kqone = getonecate($id);
+                        $kq = getallcate();
+                        var_dump($id);
+
+                        include "updatecate.php";
+                        break;
+                      }
+                      if (isset($_POST['id'])) {
+                        $id = $_POST['id'];
+                        var_dump($id);
+                        $tenloaisanpham = $_POST['tenloaisanpham'];
+                        $manhasanxuat = $_POST['manhasanxuat'];
+                        updatecate($id, $tenloaisanpham, $manhasanxuat); // Gọi hàm cập nhật
+                        $kq = getallcate(); // Lấy lại tất cả danh mục
+                        include "categories.php"; // Quay lại trang danh mục
+                      }
+                      break;
+
+                    case 'logout':
+                      if (isset($_SESSION['role'])) unset($_SESSION['role']);
+                      header('location: ../login.php');
                     }
                   }
 

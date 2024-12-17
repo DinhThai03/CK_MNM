@@ -1,7 +1,10 @@
 <?php
+session_start();
 include "./connect/connect.php";
 include "./connect/sanphamconn.php";
 include "./connect/nhasanxuatconn.php";
+include "./connect/categoriesconn.php";
+include "./connect/user.php";
 $dssp = getallsp();
 $hang = getallnsx();
 ?>
@@ -33,7 +36,7 @@ $hang = getallnsx();
           $dssp = getspBynsx($idnsx);
         }
         include "./view/home.php";
-        break;
+        break;  
       case 'category':
         if (isset($_GET['loai_id']) && $_GET['loai_id'] > 0) {
           $idcate = $_GET['loai_id'];
@@ -41,6 +44,25 @@ $hang = getallnsx();
         }
         include "./view/home.php";
         break;
+        case 'search':
+
+          $keyword = trim($_POST['keyword']); // Loại bỏ khoảng trắng thừa
+          echo "<script>console.log('" . $keyword . "')</script>";
+          $dssp = searchProducts($keyword); // Gọi hàm tìm kiếm
+          include "./view/home.php"; // Hiển thị kết quả
+  
+          break;
+      case 'detail':
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+          $id = $_GET['id'];
+          $prodetail = getdetail($id);
+        } else {
+          $prodetail = 0;
+        }
+
+        include 'detail.php';
+        break;
+      
       case 'logout':
         unset($_SESSION['role']);
         unset($_SESSION['iduser']);
@@ -53,7 +75,8 @@ $hang = getallnsx();
           $userpass = $_POST['userpass'];
 
           $kq = getuserinfo($username, $userpass);
-          $role = $kq[0]['role'];
+          if($kq != null){
+            $role = $kq[0]['role'];
           if ($role == 1) {
             $_SESSION['role'] = $role;
             header('location: ./admin/index.php');
@@ -65,6 +88,8 @@ $hang = getallnsx();
 
             header('location: index.php');
           }
+          }
+          
         }
         include "./login.php";
         break;

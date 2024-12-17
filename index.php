@@ -35,8 +35,15 @@ $hang = getallnsx();
         }
         include "./view/home.php";
         break;
+      case 'category':
+        if (isset($_GET['loai_id']) && $_GET['loai_id'] > 0) {
+          $idcate = $_GET['loai_id'];
+          $dssp = getallsp_byCate($idcate);
+        }
+        include "./view/home.php";
+        break;
     }
-  }else{
+  } else {
     include "./view/home.php";
   }
   include "./view/footer.php";

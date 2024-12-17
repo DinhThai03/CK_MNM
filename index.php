@@ -50,16 +50,74 @@ $hang = getallnsx();
           include "./view/home.php"; // Hiển thị kết quả
   
           break;
-      case 'detail':
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-          $id = $_GET['id'];
-          $prodetail = getdetail($id);
-        } else {
-          $prodetail = 0;
-        }
-
-        include 'detail.php';
-        break;
+          case 'addcart':
+            if (isset($_POST['addtocart']) && ($_POST['addtocart'])) {
+              $id = $_POST['id'];
+              $tensp = $_POST['tensp'];
+              $anhlaptop = $_POST['anhlaptop'];
+              $price = $_POST['price'];
+              if (isset($_POST['soluonng'])) {
+                $soluong = $_POST['soluong'];
+              } else {
+    
+                $soluong = 1;
+              }
+              $fg = 0;
+              //kiem tra san pham da ton tai hay chua neu roi tang so luong
+              $i = 0;
+              foreach ($_SESSION['giohang'] as $item) {
+                if ($item[1] === $tensp) {
+                  $slnew = $soluong + $item[4];
+                  $_SESSION['giohang'][$i][4] = $slnew;
+                  $fg = 1;
+                  break;
+                }
+                $i++;
+              }
+              //chua thi them vao gio hang bth
+              if ($fg == 0) {
+                $item = array($id, $tensp, $anhlaptop, $price, $soluong);
+                $_SESSION['giohang'][] = $item;
+              }
+              header('location: index.php?page_layout=cart');
+            }
+    
+            //include './view/cart.php';
+            break;
+          case 'delcart':
+            if (isset($_GET['i']) && ($_GET['i'] > 0)) {
+              if (isset($_SESSION['giohang']))
+                array_splice($_SESSION['giohang'], $_GET['i'], 1);
+            } else {
+    
+              if (isset($_SESSION['giohang'])) unset($_SESSION['giohang']);
+            }
+            if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
+              header('location: index.php?page_layout=cart');
+              // include './view/cart.php';
+            } else {
+    
+              header('location: index.php');
+            }
+    
+            break;
+        case 'delcart':
+          if (isset($_GET['i']) && ($_GET['i'] > 0)) {
+            if (isset($_SESSION['giohang']))
+              array_splice($_SESSION['giohang'], $_GET['i'], 1);
+          } else {
+  
+            if (isset($_SESSION['giohang'])) unset($_SESSION['giohang']);
+          }
+          if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
+            header('location: index.php?page_layout=cart');
+            // include './view/cart.php';
+          } else {
+  
+            header('location: index.php');
+          }
+  
+          break;
       
     }
   } else {

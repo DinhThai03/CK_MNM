@@ -106,8 +106,23 @@
 
                   if (isset($_GET['page_layout'])) {
                     switch ($_GET['page_layout']) {
-                      
-                     
+
+                      case 'nsx':
+                        $kq = getallnsx();
+                        include "nhasanxuat.php";
+                        break;
+                      case 'addnsx':
+                        include "addnsx.php";
+                        if (isset($_POST['themnsx']) && $_POST['themnsx']) {
+                          $manhasanxuat = $_POST['manhasanxuat'];
+                          $tennhasanxuat = $_POST['tennhasanxuat'];
+                          $mota = $_POST['mota'];
+                          insertnsx($manhasanxuat, $tennhasanxuat, $mota);
+                        }
+                        $kq = getallnsx();
+
+                        include "nhasanxuat.php";
+                        break;
                     }
                   }
 

@@ -1,8 +1,10 @@
 <?php
+if (!isset($_SESSION['giohang'])) $_SESSION['giohang'] = [];
 include "./connect/connect.php";
 include "./connect/sanphamconn.php";
 include "./connect/nhasanxuatconn.php";
 include "./connect/categoriesconn.php";
+include "./connect/donhangconn.php";
 $dssp = getallsp();
 $hang = getallnsx();
 ?>
@@ -151,23 +153,11 @@ $hang = getallnsx();
             }
     
             break;
-        case 'delcart':
-          if (isset($_GET['i']) && ($_GET['i'] > 0)) {
-            if (isset($_SESSION['giohang']))
-              array_splice($_SESSION['giohang'], $_GET['i'], 1);
-          } else {
-  
-            if (isset($_SESSION['giohang'])) unset($_SESSION['giohang']);
-          }
-          if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
-            header('location: index.php?page_layout=cart');
-            // include './view/cart.php';
-          } else {
-  
-            header('location: index.php');
-          }
-  
-          break;
+        
+
+          case 'cart':
+        include './view/cart.php';
+        break;
       
     }
   } else {

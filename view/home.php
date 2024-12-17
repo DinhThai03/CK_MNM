@@ -4,7 +4,13 @@
             <div class="listmenu">
                 <ul class="list-group list">
                     <h5>Hãng</h5>
-                   
+                    <?php
+                    foreach ($hang as $nsx) {
+                        echo ' <li class="list-group-item">
+                <a href="index.php?page_layout=nsx&manhasanxuat=' . $nsx['manhasanxuat'] . '">' . $nsx['tennhasanxuat'] . '</a>
+              </li>';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

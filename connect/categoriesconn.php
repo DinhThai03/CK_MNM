@@ -58,3 +58,12 @@ function delcate($id)
     $sql = "DELETE from laptop_categories where id=" . $id;
     $conn->exec($sql);
 }
+function checkDuplicateCategory($tenloaisanpham)
+{
+    $conn = connectdb();
+    $sql = "SELECT COUNT(*) as count FROM laptop_categories WHERE tenloaisanpham = :tenloaisanpham";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':tenloaisanpham' => $tenloaisanpham]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['count'] > 0;
+}

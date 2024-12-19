@@ -154,14 +154,22 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
                         break;
                       case 'addcate':
                         include "addcategories.php";
+
                         if (isset($_POST['themcate']) && $_POST['themcate']) {
                           $id = $_POST['id'];
                           $tenloaisanpham = $_POST['tenloaisanpham'];
                           $manhasanxuat = $_POST['manhasanxuat'];
-                          insertcate($id, $tenloaisanpham, $manhasanxuat);
-                        }
-                        $kq = getallcate();
 
+                          $existingCategory = checkDuplicateCategory($tenloaisanpham);
+                          if ($existingCategory) {
+                            echo "<script>alert('Tên loại sản phẩm đã tồn tại! Vui lòng nhập tên khác.');</script>";
+                          } else {
+                            insertcate($id, $tenloaisanpham, $manhasanxuat);
+                            echo "<script>alert('Thêm danh mục thành công!');</script>";
+                          }
+                        }
+
+                        $kq = getallcate();
                         include "categories.php";
                         break;
 

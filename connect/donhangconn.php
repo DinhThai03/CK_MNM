@@ -55,18 +55,32 @@ function getorderinfo($iddh)
     $kq = $stmt->fetchALL();
     return $kq;
 }
-function addCartByid($id_tk, $laptop_id, $tensp, $anhsp, $soluong, $dongia)
+function addCartByid($id_tk, $laptop_id, $tensp, $anhsp, $tongtien, $soluong)
 {
+    
     $conn = connectdb();
-    $sql_insert = "INSERT INTO giohang (id_tk, laptop_id, tensp, anhsp, soluong, dongia) VALUES (:id_tk, :laptop_id, :tensp, :anhsp, :soluong, :dongia)";
-    $stmt = $conn->prepare($sql_insert);
-    $stmt->bindParam(':id_tk', $id_tk, PDO::PARAM_INT);
-    $stmt->bindParam(':laptop_id', $laptop_id, PDO::PARAM_INT);
-    $stmt->bindParam(':tensp', $tensp, PDO::PARAM_STR);
-    $stmt->bindParam(':anhsp', $anhsp, PDO::PARAM_STR);
-    $stmt->bindParam(':soluong', $soluong, PDO::PARAM_INT);
-    $stmt->bindParam(':dongia', $dongia, PDO::PARAM_STR);
+    $stmt = $conn->prepare("select * from giohang where id_tk = $id_tk and laptop_id = $laptop_id");
     $stmt->execute();
+    $kq = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (count($kq) == 0) {
+        $sql_insert = "INSERT INTO giohang (id_tk, laptop_id, tensp, anhsp, tongtien, soluong) VALUES (:id_tk, :laptop_id, :tensp, :anhsp, :tongtien, :soluong)";
+        $stmt = $conn->prepare($sql_insert);
+        $stmt->bindParam(':id_tk', $id_tk, PDO::PARAM_INT);
+        $stmt->bindParam(':laptop_id', $laptop_id, PDO::PARAM_INT);
+        $stmt->bindParam(':tensp', $tensp, PDO::PARAM_STR);
+        $stmt->bindParam(':anhsp', $anhsp, PDO::PARAM_STR);
+        $stmt->bindParam(':tongtien', $tongtien, PDO::PARAM_INT);
+        $stmt->bindParam(':soluong', $soluong, PDO::PARAM_STR);
+        $stmt->execute();
+    } else {
+        $sql = "update giohang set tongtien = tongtien + $tongtien, soluong = soluong + $soluong where id_tk = $id_tk and laptop_id = $laptop_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+    }
+    
+
+    
 }
 function getCartByUserId($id_tk)
 {
@@ -78,4 +92,12 @@ function getCartByUserId($id_tk)
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function delcart($id){
+    $conn = connectdb();
+    $sql = "delete from giohang where id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
 }
